@@ -30,7 +30,7 @@ namespace UserManager.Repository
             }
         }
 
-        public UserModel Get(int id)
+        public UserModel Get(int id)//redo
         {
             UserModel user = null;
             try

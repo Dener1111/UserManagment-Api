@@ -32,8 +32,9 @@ namespace UserManager.Services
             {
                 Id = user.Id,
                 Name = user.Name,
-                Birthday = user.Birthday,
+                Birthday = user.Birthday > DateTime.Now ? new DateTime(1970, 1, 1) : user.Birthday,
                 Address = user.Address,
+                Phone = user.Phone,
                 CreationTime = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds
             };
 
