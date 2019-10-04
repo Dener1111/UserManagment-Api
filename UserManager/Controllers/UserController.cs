@@ -27,7 +27,7 @@ namespace UserManager.Controllers
             var _user = services.GetUser(id);
 
             if (_user == null)
-                return NotFound();
+                return NotFound("item not found");
 
             return Ok(_user);
         }
@@ -39,7 +39,7 @@ namespace UserManager.Controllers
             var _users = services.GetUsers();
 
             if (_users.Count() == 0)
-                return NotFound();
+                return NotFound("no items available");
 
             return Ok(_users);
         }
@@ -49,12 +49,12 @@ namespace UserManager.Controllers
         public ActionResult<UserModel> AddUser(User user)
         {
             if (!ModelState.IsValid)
-                return UnprocessableEntity();
+                return BadRequest("data is invalid");
 
             var _user = services.AddUser(user);
 
             if (_user == null)
-                return NotFound();
+                return NotFound("cant add item");
 
             return Ok(_user);
         }
@@ -64,19 +64,19 @@ namespace UserManager.Controllers
         public ActionResult<UserModel> EditUser(int id, User user)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest("data in invalid");
 
             if (user.Id != id)
-                return BadRequest();
+                return BadRequest("id's dont match");
 
             var _user = services.GetUser(id);
             if (_user == null)
-                return NotFound();
+                return NotFound("item not found");
 
             var addadUser = services.AddUser(user);
 
             if (addadUser == null)
-                return NotFound();
+                return NotFound("cant edit user");
 
             return Ok(user);
         }
@@ -87,7 +87,7 @@ namespace UserManager.Controllers
         {
             var user = services.GetUser(id);
             if(user == null)
-                return NotFound();
+                return NotFound("item not found");
 
             services.RemoveUser(id);
             return Ok(user);
